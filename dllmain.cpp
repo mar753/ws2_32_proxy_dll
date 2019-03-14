@@ -20,6 +20,10 @@ BOOL WINAPI DllMain(HINSTANCE hInst, DWORD reason, LPVOID)
 	{
 		hLThis = hInst;
 
+		// This code ensures that the original version of a DLL library
+		// will be read from the system folder. It is not really needed
+		// here because 'ws2_32.dll' is on the known DLL list so it will
+		// be always read from the system folder.
 		if (!GetSystemDirectory(systemPath, MAX_PATH)) {
 			return false;
 		}
