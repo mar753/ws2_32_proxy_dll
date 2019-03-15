@@ -37,5 +37,7 @@ Source code is intended to use with the Visual Studio 2017 or newer (I have used
 
 Wrappit auto proxy (https://www.codeproject.com/Articles/16541/Create-your-Proxy-DLLs-automatically) software was used to generate `ws2_32.dll` proxy DLL source files.
 
+To sniff network packets Wireshark was used, to sniff WINAPI calls API Monitor v2 (32-bit exe in this case) was used and to check which DLL was loaded by an application I have used Process Explorer v16.22.
+
 ## License
 MIT
