@@ -26,6 +26,10 @@ The reason that you cannot use longer name is that you will overwrite something 
 For your convenience you can find modified LHMultiplayer.dll file from Black & White v1.30 here: https://www.mediafire.com/file/oa3k3m229ar3fw8/LHMultiplayerR.dll/file it has the string changed to `wsmock.dll`, so the only thing you need to do is to copy `ws2_32.dll` to the Black & White's root folder, change it's name to the `wsmock.dll`, get the modified `LHMultiplayer.dll` and paste it into the same folder replacing the old one, then create (in the same folder) a file called `ws2_32.cfg` with a content `gethostbynameForcedAdapterIP=<your_adapter_IP>`, replacing `<your_adapter_IP>` with one of your adapter's IP you would like the application to use e.g.:
 `gethostbynameForcedAdapterIP=192.168.3.24`
 
+Remark: When using VPN connection (additional network adapter) most probably it will be the 'public' connection in Windows, what means that different rules will apply to this connection in Windows default firewall. In this case we need to remember that our application (runblack.exe here) must be added as an exception rule for incoming connections to Windows firewall for all 'public' type networks and this rule must allow UDP and TCP connections. 
+Every time when some application uses network and when we run it for the first time from a given path, Windows will ask if we would like to allow incoming connections to this application, we can select if it applies to 'public' or 'private' networks using checkboxes.
+If we will not make such rule in firewall no one will be able to connect to our application.
+
 ## Installation
 1. Download `ws2_32.dll` binary https://github.com/mar753/ws2_32_proxy_dll/tree/master/bin and paste it into your application folder. It is a 'known DLL' so you need to inject this DLL into some process (using some DLL injector) or force the application to load a different name DLL (just like in the Example section above).
 2. Change the `ws2_32.cfg` config to force some IP address or assign `=disabled` to redirect `gethostbyname` to the original `ws2_32.dll`
