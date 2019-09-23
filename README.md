@@ -1,11 +1,11 @@
 # Winsock2 `ws2_32.dll` DLL proxy with `gethostbyname()` overwrite/mock
 
-TL;DR -> Fixes old games/apps LAN connection problems
+TL;DR -> Fixes old games/apps LAN using VPN connection problems
 
 Windows binaries: https://github.com/mar753/ws2_32_proxy_dll/tree/master/bin
 
 ## Description
-It is a common case that the old software (including games) uses `gethostbyname` WINAPI function/macro to fetch IP address of the network adapters/interfaces present in the Microsoft's Windows systems, what BTW is the wrong design pattern, because this function was never designed for that purpose. Everything is fine when we have only one active network adapter, but when we have more than one (e.g. a physical Ethernet adapter and an active VPN connection adapter created with SoftEther/Hamachi etc.) the effect is that the  `gethostbyname` function returns those two or more IP addresses in arbitrary order and what the old software usually do is fetching the first one - what is not always what we expect.
+It is a common case that an old software (including games) uses `gethostbyname` WINAPI function/macro to fetch IP address of the network adapters/interfaces present in the Microsoft's Windows systems, what BTW is the wrong design pattern, because this function was never designed for that purpose. Everything is fine when we have only one active network adapter, but when we have more than one (e.g. a physical Ethernet adapter and an active VPN connection adapter created with SoftEther/Hamachi etc.) the effect is that the  `gethostbyname` function returns those two or more IP addresses in arbitrary order and what the old software usually do is fetching the first one - what is not always what we expect.
 
 What this solution allows to do is that you can force an IP address which will be returned while calling `gethostbyname`. This can be defined in the `ws2_32.cfg` file. This file will be automatically created in the same folder (if it does not exist) during calling `gethostbyname` and will have a content: `gethostbynameForcedAdapterIP=disabled`. So the default behavior is exactly the same as calling the original `ws2_32.dll` DLL directly.
 When you change the content of this config file to e.g. `gethostbynameForcedAdapterIP=192.168.3.24` it will force that `gethostbyname` will always return only one interface/adapter with the IP: `192.168.3.24`. So the application will actually see that we have only one interface with IPv4 equal to `192.168.3.24`.
