@@ -4,6 +4,8 @@ TL;DR -> Fixes old games/apps LAN using VPN connection problems
 
 Windows binaries: https://github.com/mar753/ws2_32_proxy_dll/tree/master/bin
 
+No changes in routing tables required
+
 ## Description
 It is a common case that an old software (including games) uses `gethostbyname` WINAPI function/macro to fetch IP address of the network adapters/interfaces present in the Microsoft's Windows systems, what BTW is the wrong design pattern, because this function was never designed for that purpose. Everything is fine when we have only one active network adapter, but when we have more than one (e.g. a physical Ethernet adapter and an active VPN connection adapter created with SoftEther/Hamachi etc.) the effect is that the  `gethostbyname` function returns those two or more IP addresses in arbitrary order and what the old software usually do is fetching the first one - what is not always what we expect.
 
